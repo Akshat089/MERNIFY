@@ -1,4 +1,4 @@
-import React, { useState } from 'react'; // <-- 1. IMPORT useState
+import React, { useState } from 'react';
 import styles from '../pages_style/Dashboard.module.css';
 
 // Importing icons from react-icons
@@ -8,41 +8,68 @@ import {
   FiFilter, 
   FiSearch, 
   FiCheckCircle, 
-  FiChevronDown 
+  FiChevronDown,
+  FiLogOut, // <-- Added icon
+  FiUserCheck // <-- Added icon
 } from 'react-icons/fi';
 import { FaMapMarkedAlt } from 'react-icons/fa';
 import { IoLocationOutline } from 'react-icons/io5';
-import { GrResources } from "react-icons/gr"; // <-- Added icon for "Results"
+import { GrResources } from "react-icons/gr";
 
-// Notice: No ": React.FC" here
 const Dashboard = () => {
-  // --- 2. CREATE STATE VARIABLES ---
+  // State for filters
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [showVerified, setShowVerified] = useState(false);
   
+  // --- 1. ADD NEW STATE FOR DROPDOWN ---
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
+
   return (
     <div className={styles.dashboard}>
       {/* --- Header --- */}
       <header className={styles.header}>
         <div className={styles.logo}>
-          {/* You can replace this <img> with your actual logo file */}
           <img src="/logo-icon.svg" alt="Logo" className={styles.logoIcon} /> 
           Community Resource Mapper
         </div>
+        
+        {/* --- 2. UPDATED HEADER ACTIONS --- */}
         <div className={styles.headerActions}>
           <button className={styles.addButton}>
             <FiPlus /> Add New Resource
           </button>
-          <FiUser className={styles.userIcon} />
+          
+          {/* Profile Button & Dropdown */}
+          <div className={styles.profileMenu}>
+            <button 
+              className={styles.profileButton} 
+              onClick={() => setIsProfileOpen(!isProfileOpen)} // Toggle menu
+            >
+              <FiUser />
+            </button>
+
+            {/* Show dropdown if isProfileOpen is true */}
+            {isProfileOpen && (
+              <div className={styles.profileDropdown}>
+                <a href="/profile" className={styles.dropdownItem}>
+                  <FiUserCheck /> Profile
+                </a>
+                <button className={styles.dropdownItem}>
+                  <FiLogOut /> Logout
+                </button>
+              </div>
+            )}
+          </div>
         </div>
       </header>
 
       {/* --- Main Content --- */}
       <main className={styles.mainContent}>
+        {/* ... (rest of your mapArea and sidebar code is unchanged) ... */}
+
         {/* --- Map Area (Left) --- */}
         <div className={styles.mapArea}>
-          {/* TODO: Replace this placeholder with your interactive map component */}
           <div className={styles.mapPlaceholder}>
             <FaMapMarkedAlt className={styles.mapIcon} />
             <h2>Interactive Map</h2>
@@ -70,7 +97,6 @@ const Dashboard = () => {
                   type="text"
                   id="search"
                   placeholder="Enter resource name..."
-                  // --- 3. CONNECT STATE ---
                   value={searchTerm}
                   onChange={(e) => setSearchTerm(e.target.value)}
                 />
@@ -82,7 +108,6 @@ const Dashboard = () => {
               <div className={styles.selectWrapper}>
                 <select 
                   id="category" 
-                  // --- 3. CONNECT STATE ---
                   value={selectedCategory}
                   onChange={(e) => setSelectedCategory(e.target.value)}
                 >
@@ -103,7 +128,6 @@ const Dashboard = () => {
               <label className={styles.toggleSwitch}>
                 <input 
                   type="checkbox" 
-                  // --- 3. CONNECT STATE ---
                   checked={showVerified}
                   onChange={(e) => setShowVerified(e.target.checked)}
                 />
@@ -116,7 +140,7 @@ const Dashboard = () => {
           <section className={styles.resultsSection}>
             <h3 className={styles.sectionTitle}>
               <div className={styles.resultsTitle}>
-                <GrResources /> Results {/* <-- Used new icon */}
+                <GrResources /> Results
               </div>
               <span className={styles.resultsBadge}>0</span>
             </h3>
