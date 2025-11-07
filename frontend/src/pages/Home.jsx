@@ -2,6 +2,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import '../pages_style/homepage.css';
 import { useState } from 'react';
 import { signupUser, loginUser } from "../utils/api";
+import { useNavigate } from "react-router-dom";
 
 
 function HomePage() {
@@ -9,7 +10,8 @@ function HomePage() {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
+  const navigate = useNavigate();
+  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   // Handlers
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -28,11 +30,14 @@ function HomePage() {
     if (data.token) {
       localStorage.setItem("token", data.token);
       alert("Login successful!");
+      setIsLoggedIn(true);
     } else {
       alert(data.message);
     }
   };
-
+  if (isLoggedIn) {
+    return <Dashboard />;
+  }
   return (
     <div className="container mt-5 custom-border">
       <h1 className="text-center text-primary mb-4">Creative Automation AI</h1>

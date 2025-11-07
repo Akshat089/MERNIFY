@@ -18,7 +18,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         
         {/* When the URL is "/dashboard", show the Dashboard */}
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/Dashboard" element={<Dashboard />} />
       </Routes>
     </BrowserRouter>
   );
