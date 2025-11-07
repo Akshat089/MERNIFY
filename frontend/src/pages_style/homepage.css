@@ -1,9 +1,65 @@
-.custom-border {
-  border: 3px solid #01161d; /* light blue */
-  border-radius: 24px;
-  padding: 20px;
-  background-color: rgb(178, 221, 224);
+/* This creates the full-screen teal background and centers the content */
+.homePageWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #26A69A; /* Teal background */
+  padding: 1rem; /* Adds space on small screens */
 }
-body{
-  background-color: rgb(7, 139, 133);
+
+/* This is your outer card (light blue) */
+.custom-border {
+  border: 3px solid #01161d; /* Dark border */
+  border-radius: 24px;
+  padding: 1.5rem;
+  background-color: #E0F7FA; /* Light blue background */
+  width: 100%;
+  max-width: 500px; /* Max width for the card */
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Override Bootstrap's primary text color to be more like your image */
+.text-primary {
+  color: #0d47a1 !important; /* Deeper blue */
+  font-weight: bold;
+}
+
+/* --- Custom Tab Styles ---
+These rules override Bootstrap's default nav-tabs 
+to look like your desired image.
+*/
+.nav-tabs {
+  border-bottom: none; /* Remove Bootstrap's bottom border on tabs */
+}
+
+.nav-tabs .nav-link {
+  border: 1px solid #ccc;
+  border-radius: 8px !important; /* Use !important to override Bootstrap */
+  color: #555;
+  margin: 0 0.25rem;
+  background: none;
+}
+
+/* This is the white, active tab */
+.nav-tabs .nav-link.active {
+  background-color: #ffffff;
+  color: #0d47a1;
+  border-color: #0d47a1;
+  font-weight: 500;
+}
+
+/* This is the inactive tab on hover */
+.nav-tabs .nav-link:not(.active):hover {
+  border-color: #aaa;
+}
+
+/* --- Inner Card Style ---
+Overrides Bootstrap's default .card
+*/
+.card {
+  border-radius: 12px !important; /* Rounded corners for inner white box */
+  border: none !important; /* Remove card border */
 }
