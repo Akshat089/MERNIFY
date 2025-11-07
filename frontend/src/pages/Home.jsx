@@ -1,9 +1,37 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../pages_style/homepage.css';
 import { useState } from 'react';
+import { signupUser, loginUser } from "../utils/api";
+
 
 function HomePage() {
   const [activeTab, setActiveTab] = useState('login');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+
+  // Handlers
+  const handleSignup = async (e) => {
+    e.preventDefault();
+    const data = await signupUser(name, email, password);
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      alert("Signup successful!");
+    } else {
+      alert(data.message);
+    }
+  };
+
+  const handleLogin = async (e) => {
+    e.preventDefault();
+    const data = await loginUser(email, password);
+    if (data.token) {
+      localStorage.setItem("token", data.token);
+      alert("Login successful!");
+    } else {
+      alert(data.message);
+    }
+  };
 
   return (
     <div className="container mt-5 custom-border">
@@ -29,34 +57,64 @@ function HomePage() {
 
       <div className="card mt-4 p-4 shadow-sm mx-auto" style={{ maxWidth: '400px' }}>
         {activeTab === 'login' ? (
-          <form>
+          <form onSubmit={handleLogin}>
             <h3 className="text-center mb-3">Sign In</h3>
             <div className="mb-3">
               <label className="text-start d-block">Email address</label>
-              <input type="email" className="form-control" placeholder="Enter email" />
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="mb-3">
               <label className="text-start d-block">Password</label>
-              <input type="password" className="form-control" placeholder="Enter password" />
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <button type="submit" className="btn btn-primary w-100">
               Sign In
             </button>
           </form>
         ) : (
-          <form>
+          <form onSubmit={handleSignup}>
             <h3 className="text-center mb-3">Sign Up</h3>
             <div className="mb-3">
               <label className="text-start d-block">Full Name</label>
-              <input type="text" className="form-control" placeholder="Enter name" />
+              <input
+                type="text"
+                className="form-control"
+                placeholder="Enter name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </div>
             <div className="mb-3">
               <label className="text-start d-block">Email address</label>
-              <input type="email" className="form-control" placeholder="Enter email" />
+              <input
+                type="email"
+                className="form-control"
+                placeholder="Enter email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className="mb-3">
               <label className="text-start d-block">Password</label>
-              <input type="password" className="form-control" placeholder="Enter password" />
+              <input
+                type="password"
+                className="form-control"
+                placeholder="Enter password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+              />
             </div>
             <button type="submit" className="btn btn-success w-100">
               Sign Up
