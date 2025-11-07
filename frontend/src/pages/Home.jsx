@@ -11,7 +11,6 @@ function HomePage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false); 
   // Handlers
   const handleSignup = async (e) => {
     e.preventDefault();
@@ -30,14 +29,12 @@ function HomePage() {
     if (data.token) {
       localStorage.setItem("token", data.token);
       alert("Login successful!");
-      setIsLoggedIn(true);
+      navigate("/Dashboard");
     } else {
       alert(data.message);
     }
   };
-  if (isLoggedIn) {
-    return <Dashboard />;
-  }
+  
   return (
     <div className="homePageWrapper">
     <div className="container mt-5 custom-border">
