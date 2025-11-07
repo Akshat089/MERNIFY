@@ -36,6 +36,7 @@ function HomePage() {
   };
   
   return (
+    <div className="homePageWrapper">
     <div className="container mt-5 custom-border">
       <h1 className="text-center text-primary mb-4">Creative Automation AI</h1>
       <ul className="nav nav-tabs justify-content-center">
@@ -125,6 +126,7 @@ function HomePage() {
         )}
       </div>
     </div>
+    </div> // 4. CLOSE THE WRAPPER DIV
   );
 }
 
