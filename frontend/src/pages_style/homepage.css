@@ -1,0 +1,5 @@
+.custom-border {
+  border: 3px solid #01161d; /* light blue */
+  border-radius: 24px;
+  padding: 20px;
+}
