@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styles from '../pages_style/Dashboard.module.css';
+import { useNavigate } from "react-router-dom";
 
 // Importing icons from react-icons
 import { 
@@ -17,6 +18,12 @@ import { IoLocationOutline } from 'react-icons/io5';
 import { GrResources } from "react-icons/gr";
 
 const Dashboard = () => {
+  const logout = async () => {
+    localStorage.removeItem("token");
+    navigate("/");
+    alert("You have been logged out successfully!");
+  };
+  const navigate = useNavigate();
   // State for filters
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
@@ -55,7 +62,9 @@ const Dashboard = () => {
                 <a href="/profile" className={styles.dropdownItem}>
                   <FiUserCheck /> Profile
                 </a>
-                <button className={styles.dropdownItem}>
+                <button className={styles.dropdownItem} onClick={() => {
+                  logout();        // clear login state
+                  }}>
                   <FiLogOut /> Logout
                 </button>
               </div>
